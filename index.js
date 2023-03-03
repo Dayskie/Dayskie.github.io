@@ -13,7 +13,7 @@ let names = [
 ]
 let result = Math.floor(Math.random() * names.length)
 
-request.open("GET", 'http://api.alquran.cloud/v1/ayah/' + rndVerseNumQ + '/en.asad');
+request.open("GET", 'https://api.alquran.cloud/v1/ayah/' + rndVerseNumQ + '/en.asad');
 request.send();
 request.onload = () =>{
     let jObj = JSON.parse(request.response);
