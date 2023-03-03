@@ -1,0 +1,22 @@
+body{
+    background-color: #1F1B24;
+}
+h1 {
+    text-align: center;
+    font-size: 300%;
+    color: aliceblue;
+}
+h2 {
+    text-align: center;
+    color: aliceblue;
+}
+p {
+    text-align: center;
+    color: aliceblue;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
