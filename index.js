@@ -55,11 +55,11 @@ let keywords = [
     'slap',
     'kill'
 ]
-let resultAnime = Math.floor(Math.random() * keywords.length)
-let anime = new XMLHttpRequest();
-anime.open("GET", "https://api.waifu.pics/sfw/" + keywords[resultAnime]);
-anime.send();
-anime.onload = () =>{
-    let jObj = JSON.parse(anime.response);
-    document.getElementById("img").src = jObj.url
-}
+// let resultAnime = Math.floor(Math.random() * keywords.length)
+// let anime = new XMLHttpRequest();
+// anime.open("GET", "https://api.waifu.pics/sfw/" + keywords[resultAnime]);
+// anime.send();
+// anime.onload = () =>{
+//     let jObj = JSON.parse(anime.response);
+//     document.getElementById("img").src = jObj.url
+// }
