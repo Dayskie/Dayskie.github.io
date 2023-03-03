@@ -1,5 +1,5 @@
 let request = new XMLHttpRequest();
-let rndVerseNumQ = Math.random() * (6236 - 1) + 1;
+let rndVerseNumQ = Math.floor(Math.random() * (6236 - 1) + 1);
 
 let requestBible = new XMLHttpRequest();
 let randomChapNumB = Math.floor(Math.random() * (21 - 1) + 1); 
