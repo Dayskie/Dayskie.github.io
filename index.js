@@ -1,40 +1,15 @@
-let request = new XMLHttpRequest();
 let rndVerseNumQ = Math.floor(Math.random() * (6236 - 1) + 1);
 
-request.open("GET", 'https://api.alquran.cloud/v1/ayah/' + rndVerseNumQ + '/en.asad');
-request.send();
-request.onload = () =>{
-    let jObj = JSON.parse(request.response);
-    document.getElementById("verseQ").innerHTML = `< ` + jObj.data.text  + ` >`;
-    document.getElementById("verseQInfo").innerHTML = "Surah Number " + jObj.data.surah.number + ", " + jObj.data.surah.name + " (" + jObj.data.surah.englishNameTranslation + ")";
-}
+fetch('https://api.alquran.cloud/v1/ayah/' + rndVerseNumQ + '/en.asad')
+    .then((quranResponse) => quranResponse.json())
+    .then((data) => {
+        document.getElementById("verseQ").innerHTML = `< ` + data.data.text  + ` >`
+        document.getElementById("verseQInfo").innerHTML = "Surah Number " + data.data.surah.number + ", " + data.data.surah.name + " (" + data.data.surah.englishNameTranslation + ")"
+    })
 
+//fixup
 let requestBible = new XMLHttpRequest();
 function BibleSearch(){
-    let names = [
-        "John",
-        "Roman",
-        "Mark",
-        "Luke",
-        "Matt"
-    ]
-    let randomChapNumB = Math.floor(Math.random() * (21 - 1) + 1); 
-    let randomVerseB = Math.floor(Math.random() * (42 - 1) + 1);
-    let result = Math.floor(Math.random() * names.length)
-
-
-    fetch("https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB)
-        .then((bibleResponse) => {
-           if(!bibleResponse.ok) {
-            throw new Error("unable to get bible verse!")
-            //aka do the fetch again somehow
-           }
-           return bibleResponse.json()
-        }) 
-        .then((data) => document.getElementById("verseB").innerHTML = `< ` + data.verses[0].text  + ` >`)
-    document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB
-
-
     // requestBible.open("GET", "https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB);
     // requestBible.send();
     // console.log(requestBible.response)
@@ -47,6 +22,33 @@ function BibleSearch(){
     // }
 }
 BibleSearch()
+
+let names = [
+    "John",
+    "Roman",
+    "Mark",
+    "Luke",
+    "Matt"
+]
+
+let randomChapNumB = Math.floor(Math.random() * (21 - 1) + 1); 
+let randomVerseB = Math.floor(Math.random() * (42 - 1) + 1);
+let result = Math.floor(Math.random() * names.length)
+
+fetch("https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB)
+    .then((bibleResponse) => {
+       if(!bibleResponse.ok) {
+        throw new Error("unable to get bible verse!")
+        //aka do the fetch again somehow
+       }
+       return bibleResponse.json()
+    }) 
+    .then((data) => {
+        document.getElementById("verseB").innerHTML = `< ` + data.verses[0].text  + ` >`
+        document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB
+    })
+
+
 
 let keywords = [
     'waifu',
@@ -73,10 +75,6 @@ let keywords = [
     'slap'
 ]
 let resultAnime = Math.floor(Math.random() * keywords.length)
-let anime = new XMLHttpRequest();
-anime.open("GET", "https://api.waifu.pics/sfw/" + keywords[resultAnime]);
-anime.send();
-anime.onload = () =>{
-    let jObj = JSON.parse(anime.response);
-    document.getElementById("img").src = jObj.url
-}
+fetch("https://api.waifu.pics/sfw/" + keywords[resultAnime])
+    .then((animeRespone) => animeRespone.json())
+    .then((data) => document.getElementById("img").src = data.url)
