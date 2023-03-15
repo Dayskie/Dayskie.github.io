@@ -22,16 +22,29 @@ function BibleSearch(){
     let randomVerseB = Math.floor(Math.random() * (42 - 1) + 1);
     let result = Math.floor(Math.random() * names.length)
 
-    requestBible.open("GET", "https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB);
-    requestBible.send();
 
-    requestBible.onload = () =>{
-        if(requestBible.status == 404) {BibleSearch()}
-        console.log("Bible API status: " + requestBible.status)
-        let jObj = JSON.parse(requestBible.response);
-        document.getElementById("verseB").innerHTML = `< ` + jObj.verses[0].text  + ` >`;
-        document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB;
-    }
+    fetch("https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB)
+        .then((bibleResponse) => {
+           if(!bibleResponse.ok) {
+            throw new Error("unable to get bible verse!")
+            //aka do the fetch again somehow
+           }
+           return bibleResponse.json()
+        }) 
+        .then((data) => document.getElementById("verseB").innerHTML = `< ` + data.verses[0].text  + ` >`)
+    document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB
+
+
+    // requestBible.open("GET", "https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB);
+    // requestBible.send();
+    // console.log(requestBible.response)
+    // requestBible.onload = () =>{
+    //     if(requestBible.status == 404) {BibleSearch()}
+    //     console.log("Bible API status: " + requestBible.status)
+    //     let jObj = JSON.parse(requestBible.response);
+    //     document.getElementById("verseB").innerHTML = `< ` + jObj.verses[0].text  + ` >`;
+    //     document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB;
+    // }
 }
 BibleSearch()
 
