@@ -34,7 +34,6 @@ let keywords = [
     'neko',
     'shinobu',
     'megumin',
-    'bully',
     'cuddle',
     'hug',
     'awoo',
@@ -52,14 +51,13 @@ let keywords = [
     'nom',
     'bite',
     'glomp',
-    'slap',
-    'kill'
+    'slap'
 ]
-// let resultAnime = Math.floor(Math.random() * keywords.length)
-// let anime = new XMLHttpRequest();
-// anime.open("GET", "https://api.waifu.pics/sfw/" + keywords[resultAnime]);
-// anime.send();
-// anime.onload = () =>{
-//     let jObj = JSON.parse(anime.response);
-//     document.getElementById("img").src = jObj.url
-// }
+let resultAnime = Math.floor(Math.random() * keywords.length)
+let anime = new XMLHttpRequest();
+anime.open("GET", "https://api.waifu.pics/sfw/" + keywords[resultAnime]);
+anime.send();
+anime.onload = () =>{
+    let jObj = JSON.parse(anime.response);
+    document.getElementById("img").src = jObj.url
+}

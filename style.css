@@ -15,8 +15,8 @@ p {
     color: aliceblue;
 }
 .center {
-    display: block;
+    display:block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    text-align: center;
   }
