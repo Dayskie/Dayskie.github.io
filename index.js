@@ -1,18 +1,6 @@
 let request = new XMLHttpRequest();
 let rndVerseNumQ = Math.floor(Math.random() * (6236 - 1) + 1);
 
-let requestBible = new XMLHttpRequest();
-let randomChapNumB = Math.floor(Math.random() * (21 - 1) + 1); 
-let randomVerseB = Math.floor(Math.random() * (42 - 1) + 1);
-let names = [
-    "John",
-    "Roman",
-    "Mark",
-    "Luke",
-    "Matt"
-]
-let result = Math.floor(Math.random() * names.length)
-
 request.open("GET", 'https://api.alquran.cloud/v1/ayah/' + rndVerseNumQ + '/en.asad');
 request.send();
 request.onload = () =>{
@@ -21,13 +9,31 @@ request.onload = () =>{
     document.getElementById("verseQInfo").innerHTML = "Surah Number " + jObj.data.surah.number + ", " + jObj.data.surah.name + " (" + jObj.data.surah.englishNameTranslation + ")";
 }
 
-requestBible.open("GET", "https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB);
-requestBible.send();
-requestBible.onload = () =>{
-    let jObj = JSON.parse(requestBible.response);
-    document.getElementById("verseB").innerHTML = `< ` + jObj.verses[0].text  + ` >`;
-    document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB;
+let requestBible = new XMLHttpRequest();
+function BibleSearch(){
+    let names = [
+        "John",
+        "Roman",
+        "Mark",
+        "Luke",
+        "Matt"
+    ]
+    let randomChapNumB = Math.floor(Math.random() * (21 - 1) + 1); 
+    let randomVerseB = Math.floor(Math.random() * (42 - 1) + 1);
+    let result = Math.floor(Math.random() * names.length)
+
+    requestBible.open("GET", "https://bible-api.com/" + names[result] + " " + randomChapNumB + ":" + randomVerseB);
+    requestBible.send();
+
+    requestBible.onload = () =>{
+        if(requestBible.status == 404) {BibleSearch()}
+        console.log("Bible API status: " + requestBible.status)
+        let jObj = JSON.parse(requestBible.response);
+        document.getElementById("verseB").innerHTML = `< ` + jObj.verses[0].text  + ` >`;
+        document.getElementById("verseBInfo").innerHTML = names[result] + " " + randomChapNumB + ":" + randomVerseB;
+    }
 }
+BibleSearch()
 
 let keywords = [
     'waifu',
