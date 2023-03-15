@@ -74,7 +74,8 @@ let keywords = [
     'glomp',
     'slap'
 ]
-// let resultAnime = Math.floor(Math.random() * keywords.length)
-// fetch("https://api.waifu.pics/sfw/" + keywords[resultAnime])
-//     .then((animeRespone) => animeRespone.json())
-//     .then((data) => document.getElementById("img").src = data.url)
+let resultAnime = Math.floor(Math.random() * keywords.length)
+fetch("https://api.waifu.pics/sfw/" + keywords[resultAnime])
+    .then((animeRespone) => animeRespone.json())
+    .then((data) => document.getElementById("img").src = data.url)
+//<img id="img" src="../Gifs/loading.gif" alt="Anime Woman" width="500" height="500" class="center">
